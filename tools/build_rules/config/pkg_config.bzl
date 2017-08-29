@@ -12,7 +12,7 @@ pkg_config_module(name, modname,
     max_version: Optional, string.  Require less than this version.
 
   The configured repository will have a `cc_library` target with the
-  provided `modname` as well as an alias to `lib`.
+  provided `modname` as well as an alias to the provided name.
 """
 
 load(":common.bzl", "error", "success", "write_build")
@@ -20,7 +20,7 @@ load(":wrapped_ctx.bzl", "unwrap")
 
 def _write_build(repo_ctx, cflags, linkopts):
   includes, defines = _parse_cflags(repo_ctx, cflags)
-  write_build(repo_ctx, "lib", includes, defines, linkopts)
+  write_build(repo_ctx, repo_ctx.name, includes, defines, linkopts)
 
 def _fail(repo_ctx, message, tail=""):
   """Fail with message if repo_ctx.attr.mandatory, otherwise warn."""
@@ -105,7 +105,7 @@ def _symlink_directories(repo_ctx, basename, pathnames):
   base = root.get_child(basename)
   rootlen = len(str(base)) - len(basename)  # Include separator length.
   for srcpath in [unwrap(repo_ctx).path(p) for p in pathnames]:
-    destpath = base.get_child(srcpath.basename)
+    destpath = base.get_child(str(srcpath).replace('/', '_'))
     unwrap(repo_ctx).symlink(srcpath, destpath)
     result += [str(destpath)[rootlen:]]
   return result
