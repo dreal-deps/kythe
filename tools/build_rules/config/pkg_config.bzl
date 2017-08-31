@@ -19,6 +19,16 @@ load(":common.bzl", "error", "success", "write_build")
 load(":wrapped_ctx.bzl", "unwrap")
 
 def _write_build(repo_ctx, cflags, linkopts):
+  # Suppress "unhandled cflags" warnings
+  if "-frounding-math" in cflags:
+    cflags.remove("-frounding-math")
+  if "-ffloat-store" in cflags:
+    cflags.remove("-ffloat-store")
+  if "-msse2" in cflags:
+    cflags.remove("-msse2")
+  if "-mfpmath=sse" in cflags:
+    cflags.remove("-mfpmath=sse")
+
   includes, defines = _parse_cflags(repo_ctx, cflags)
   write_build(repo_ctx, repo_ctx.name, includes, defines, linkopts)
 
