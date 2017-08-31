@@ -1,4 +1,4 @@
-workspace(name = "io_kythe")
+workspace(name = "io_kythe_dreal")
 
 load("//:version.bzl", "check_version")
 

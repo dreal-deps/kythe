@@ -58,7 +58,7 @@ cc_system_package_configure = repository_rule(
         "default": attr.string(),
         "defines": attr.string_list(),
         "build_file_template": attr.label(
-            default = Label("@io_kythe//tools/build_rules/config:BUILD.tpl"),
+            default = Label("@io_kythe_dreal//tools/build_rules/config:BUILD.tpl"),
             single_file = True,
             allow_files = True,
         ),
