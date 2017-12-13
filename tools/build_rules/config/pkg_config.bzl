@@ -24,8 +24,8 @@ def _write_build(repo_ctx, cflags, linkopts):
     cflags.remove("-frounding-math")
   if "-ffloat-store" in cflags:
     cflags.remove("-ffloat-store")
-  if "-msse2" in cflags:
-    cflags.remove("-msse2")
+  if "-msse3" in cflags:
+    cflags.remove("-msse3")
   if "-mfpmath=sse" in cflags:
     cflags.remove("-mfpmath=sse")
 
